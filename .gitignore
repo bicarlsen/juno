@@ -4,4 +4,4 @@ build/
 _old/
 __pycache__
 *.egg-info/
-test
+tests
