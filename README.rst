@@ -4,7 +4,7 @@ Juno
 
 A Jupyter file watcher.
 
-Compiles code from `.ipynb` to `.py` files when saved.
+Compiles code from ``.ipynb`` to ``.py`` files when saved.
 
 .. code-block:: bash
 
@@ -17,4 +17,4 @@ To run, navigate to the desired root folder of your juptyter server and run
 
 	python -m juno
 
-To kill the server send a `SIGINT` signal by pressing :kbd:`ctrl` + :kbd:'c'.
+To kill the server send a `SIGINT` signal by pressing ``ctrl`` + ``c``.

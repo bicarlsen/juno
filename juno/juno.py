@@ -39,7 +39,6 @@ def kill_process( process ):
     # for task in tasks:
     #   task.cancel()
 
-    print( '\nJuno was defeated.' )
     sys.exit( 0 )
 
 
@@ -48,6 +47,8 @@ def kill_process( process ):
 
 def compile( file ):
     sp.run( [ 'jupyter', 'nbconvert', '--to', 'script', file ] )
+    print( f'Compiled {file}' )
+    
 
 
 # In[ ]:
@@ -61,14 +62,13 @@ def listen( read, write, handler = None):
         match = pattern.search( line )
         if match is not None:
             file = match.group( 1 )[ 1: ] # strip leading slash
-            print( f'Compiling {file}' )
             compile( file )
 
 
 # In[ ]:
 
 
-def start_jupyter( path ):
+def start_jupyter( path = '.' ):
     process = sp.Popen( [ 'jupyter', 'notebook' ], stdin = sp.PIPE, stdout = sp.PIPE, stderr = sp.PIPE )
     return process
 
@@ -76,7 +76,7 @@ def start_jupyter( path ):
 # In[ ]:
 
 
-def main( path ):
+def main( path = '.' ):
     global _root
     _root = path
 
@@ -92,7 +92,7 @@ def main( path ):
 # In[ ]:
 
 
-if __name__ == '__main__':
+def parse_args():
     parser = argparse.ArgumentParser(
         description = 'A Jupyter Notbook watcher.'
     )
@@ -105,12 +105,20 @@ if __name__ == '__main__':
     )
 
     args = parser.parse_args()
+    return args
+
+
+# In[ ]:
+
+
+if __name__ == '__main__':
+    args = parse_args()
     root = args.root
     path = (
         root
         if os.path.isabs( root ) else
         os.path.normpath( os.path.join( os.getcwd(), root ) )
     )
-
+    
     main( path )
 
